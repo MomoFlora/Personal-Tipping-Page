@@ -1,0 +1,632 @@
+/* ==================== CSS 变量 & 基础 ==================== */
+:root {
+    --bg-deep: #0a0a14;
+    --bg-mid: #12122a;
+    --card-bg: rgba(20, 20, 45, 0.75);
+    --card-border: rgba(255, 255, 255, 0.08);
+    --text-primary: #e8e8f0;
+    --text-secondary: #b0b0c8;
+    --text-muted: #7a7a9a;
+    --gold: #d4a853;
+    --gold-light: #f0d078;
+    --gold-dark: #a07828;
+    --wechat-green: #07c160;
+    --wechat-glow: rgba(7, 193, 96, 0.45);
+    --alipay-blue: #1677ff;
+    --alipay-glow: rgba(22, 119, 255, 0.45);
+    --accent: var(--wechat-green);
+    --accent-glow: var(--wechat-glow);
+    --accent-rgb: 7, 193, 96;
+    --transition-speed: 0.45s;
+}
+
+/* ==================== 全局重置 ==================== */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB',
+        'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* ==================== 粒子画布 ==================== */
+#particleCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ==================== 主容器 ==================== */
+.main-container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 440px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ==================== 装饰光晕 ==================== */
+.glow-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.6;
+    transition: background var(--transition-speed) ease;
+}
+
+.glow-orb-1 {
+    width: 220px;
+    height: 220px;
+    top: -60px;
+    left: -40px;
+    background: radial-gradient(circle, rgba(var(--accent-rgb), 0.5) 0%, transparent 70%);
+}
+
+.glow-orb-2 {
+    width: 180px;
+    height: 180px;
+    bottom: -50px;
+    right: -30px;
+    background: radial-gradient(circle, rgba(var(--accent-rgb), 0.35) 0%, transparent 70%);
+}
+
+/* ==================== 打赏卡片 ==================== */
+.reward-card {
+    position: relative;
+    width: 100%;
+    background: var(--card-bg);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid var(--card-border);
+    border-radius: 28px;
+    padding: 36px 28px 28px;
+    text-align: center;
+    box-shadow:
+        0 4px 40px rgba(0, 0, 0, 0.5),
+        0 1px 2px rgba(255, 255, 255, 0.04) inset,
+        0 0 80px rgba(var(--accent-rgb), 0.08);
+    transition: box-shadow var(--transition-speed) ease,
+        border-color var(--transition-speed) ease;
+    overflow: visible;
+}
+
+.reward-card:hover {
+    box-shadow:
+        0 8px 56px rgba(0, 0, 0, 0.55),
+        0 1px 2px rgba(255, 255, 255, 0.06) inset,
+        0 0 100px rgba(var(--accent-rgb), 0.14);
+}
+
+/* 顶部装饰线 */
+.card-accent-line {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 2px;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(var(--accent-rgb), 0.7) 20%,
+            rgba(var(--accent-rgb), 1) 50%,
+            rgba(var(--accent-rgb), 0.7) 80%,
+            transparent);
+    border-radius: 2px;
+    transition: background var(--transition-speed) ease;
+}
+
+/* ==================== 图标 ==================== */
+.icon-wrapper {
+    margin-top: 8px;
+    margin-bottom: 10px;
+}
+
+.icon-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.2), rgba(var(--accent-rgb), 0.05));
+    border: 1.5px solid rgba(var(--accent-rgb), 0.3);
+    transition: all var(--transition-speed) ease;
+    animation: iconPulse 3s ease-in-out infinite;
+}
+
+@keyframes iconPulse {
+    0%,
+    100% {
+        box-shadow: 0 0 16px rgba(var(--accent-rgb), 0.2);
+    }
+    50% {
+        box-shadow: 0 0 32px rgba(var(--accent-rgb), 0.45);
+    }
+}
+
+.heart-icon {
+    width: 26px;
+    height: 26px;
+    color: rgba(var(--accent-rgb), 0.9);
+    transition: color var(--transition-speed) ease;
+    animation: heartBeat 1.8s ease-in-out infinite;
+}
+
+@keyframes heartBeat {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+    15% {
+        transform: scale(1.18);
+    }
+    30% {
+        transform: scale(1);
+    }
+    45% {
+        transform: scale(1.1);
+    }
+    60% {
+        transform: scale(1);
+    }
+}
+
+/* ==================== 标题 ==================== */
+.card-title {
+    font-size: 1.55rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+    text-shadow: 0 0 20px rgba(var(--accent-rgb), 0.2);
+    transition: text-shadow var(--transition-speed) ease;
+}
+
+.card-subtitle {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+}
+
+/* ==================== 分隔线 ==================== */
+.divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 18px 0;
+    user-select: none;
+}
+
+.divider-line {
+    width: 50px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+}
+
+.divider-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.divider-diamond {
+    font-size: 0.45rem;
+    color: rgba(var(--accent-rgb), 0.7);
+    transition: color var(--transition-speed) ease;
+}
+
+/* ==================== 二维码区域 ==================== */
+.qr-wrapper {
+    position: relative;
+    display: inline-block;
+    margin: 0 auto 12px;
+    padding: 6px;
+}
+
+.qr-container {
+    position: relative;
+    width: 210px;
+    height: 210px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.08),
+        0 8px 32px rgba(0, 0, 0, 0.4);
+    transition: all var(--transition-speed) ease;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.qr-container:hover {
+    transform: scale(1.04);
+    box-shadow:
+        0 0 0 2px rgba(var(--accent-rgb), 0.4),
+        0 12px 44px rgba(0, 0, 0, 0.55),
+        0 0 60px rgba(var(--accent-rgb), 0.25);
+}
+
+.qr-container:active {
+    transform: scale(0.97);
+    transition: transform 0.15s ease;
+}
+
+.qr-glow-ring {
+    position: absolute;
+    inset: -3px;
+    border-radius: 22px;
+    border: 2px solid transparent;
+    background: conic-gradient(from 0deg,
+            rgba(var(--accent-rgb), 0.6),
+            rgba(var(--accent-rgb), 0.1),
+            rgba(var(--accent-rgb), 0.6),
+            rgba(var(--accent-rgb), 0.1),
+            rgba(var(--accent-rgb), 0.6)) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: ringRotate 8s linear infinite;
+    transition: all var(--transition-speed) ease;
+    pointer-events: none;
+    z-index: 2;
+}
+
+@keyframes ringRotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.qr-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    border-radius: 18px;
+    position: relative;
+    z-index: 1;
+    padding: 8px;
+    background: #fff;
+}
+
+/* 二维码角标 */
+.qr-corner {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-color: rgba(var(--accent-rgb), 0.7);
+    border-style: solid;
+    z-index: 3;
+    pointer-events: none;
+    transition: border-color var(--transition-speed) ease;
+}
+
+.qr-corner-tl {
+    top: -2px;
+    left: -2px;
+    border-width: 2px 0 0 2px;
+    border-radius: 4px 0 0 0;
+}
+.qr-corner-tr {
+    top: -2px;
+    right: -2px;
+    border-width: 2px 2px 0 0;
+    border-radius: 0 4px 0 0;
+}
+.qr-corner-bl {
+    bottom: -2px;
+    left: -2px;
+    border-width: 0 0 2px 2px;
+    border-radius: 0 0 0 4px;
+}
+.qr-corner-br {
+    bottom: -2px;
+    right: -2px;
+    border-width: 0 2px 2px 0;
+    border-radius: 0 0 4px 0;
+}
+
+/* 扫描提示 */
+.qr-scan-hint {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 20px;
+    padding: 5px 13px 5px 9px;
+    color: #fff;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    pointer-events: none;
+    transition: all var(--transition-speed) ease;
+    animation: hintFloat 3s ease-in-out infinite;
+}
+
+@keyframes hintFloat {
+    0%,
+    100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    50% {
+        transform: translateX(-50%) translateY(-4px);
+    }
+}
+
+.scan-icon {
+    opacity: 0.9;
+    flex-shrink: 0;
+}
+
+/* ==================== 提示文字 ==================== */
+.qr-tip {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-top: 10px;
+    transition: color var(--transition-speed) ease;
+}
+
+.qr-tip strong {
+    font-weight: 600;
+    color: rgba(var(--accent-rgb), 1);
+    transition: color var(--transition-speed) ease;
+}
+
+.qr-subtip {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+    letter-spacing: 0.03em;
+}
+
+/* ==================== 支付方式切换 ==================== */
+.payment-switch {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.switch-btn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 11px 20px;
+    border-radius: 50px;
+    border: 1.5px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 0.88rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+    font-family: inherit;
+}
+
+.switch-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50px;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    z-index: -1;
+}
+
+.switch-btn:hover {
+    border-color: rgba(255, 255, 255, 0.25);
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.06);
+    transform: translateY(-1px);
+}
+
+.switch-btn:active {
+    transform: scale(0.96);
+    transition: transform 0.1s ease;
+}
+
+.switch-btn.active {
+    border-color: rgba(var(--accent-rgb), 0.7);
+    background: rgba(var(--accent-rgb), 0.12);
+    color: #fff;
+    font-weight: 600;
+    box-shadow:
+        0 0 20px rgba(var(--accent-rgb), 0.25),
+        0 2px 8px rgba(0, 0, 0, 0.3);
+    transform: translateY(-1px);
+}
+
+.switch-btn.active::before {
+    opacity: 1;
+    background: rgba(var(--accent-rgb), 0.08);
+}
+
+.switch-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    transition: color var(--transition-speed) ease;
+}
+
+/* ==================== 底部 ==================== */
+.card-footer {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-text {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+}
+
+.footer-stars {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 6px;
+    font-size: 0.6rem;
+    color: rgba(var(--accent-rgb), 0.5);
+    transition: color var(--transition-speed) ease;
+    animation: starTwinkle 2s ease-in-out infinite;
+}
+
+@keyframes starTwinkle {
+    0%,
+    100% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+/* ==================== 响应式 ==================== */
+@media (max-width: 480px) {
+    .reward-card {
+        padding: 28px 18px 22px;
+        border-radius: 22px;
+    }
+
+    .card-title {
+        font-size: 1.35rem;
+        letter-spacing: 0.14em;
+    }
+
+    .card-subtitle {
+        font-size: 0.8rem;
+    }
+
+    .qr-container {
+        width: 175px;
+        height: 175px;
+        border-radius: 16px;
+    }
+
+    .qr-image {
+        border-radius: 14px;
+        padding: 6px;
+    }
+
+    .qr-glow-ring {
+        border-radius: 18px;
+        inset: -2px;
+    }
+
+    .qr-corner {
+        width: 14px;
+        height: 14px;
+    }
+
+    .switch-btn {
+        padding: 9px 16px;
+        font-size: 0.8rem;
+        gap: 5px;
+    }
+
+    .switch-icon {
+        width: 16px;
+        height: 16px;
+    }
+
+    .glow-orb-1 {
+        width: 150px;
+        height: 150px;
+        top: -40px;
+        left: -30px;
+    }
+
+    .glow-orb-2 {
+        width: 130px;
+        height: 130px;
+        bottom: -40px;
+        right: -20px;
+    }
+
+    .qr-scan-hint {
+        font-size: 0.7rem;
+        padding: 4px 10px 4px 7px;
+        bottom: 8px;
+    }
+
+    .scan-icon {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+@media (max-width: 360px) {
+    .reward-card {
+        padding: 22px 12px 18px;
+        border-radius: 18px;
+    }
+
+    .qr-container {
+        width: 150px;
+        height: 150px;
+        border-radius: 14px;
+    }
+
+    .qr-image {
+        border-radius: 12px;
+        padding: 5px;
+    }
+
+    .switch-btn {
+        padding: 8px 13px;
+        font-size: 0.75rem;
+    }
+
+    .payment-switch {
+        gap: 8px;
+    }
+}
