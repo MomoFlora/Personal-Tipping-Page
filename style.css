@@ -39,7 +39,6 @@ html {
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB',
         'Microsoft YaHei', 'Noto Sans SC', sans-serif;
-    /* 背景图 + 深色后备 */
     background: var(--bg-deep) url('images/bg.webp') no-repeat center/cover fixed;
     color: var(--text-primary);
     min-height: 100vh;
@@ -364,43 +363,6 @@ body {
     border-radius: 0 0 4px 0;
 }
 
-/* 扫描提示 - 独立位于二维码下方，不遮挡 */
-.qr-scan-hint {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    margin: 10px auto 0;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-radius: 24px;
-    padding: 7px 18px 7px 12px;
-    color: #fff;
-    font-size: 0.8rem;
-    letter-spacing: 0.05em;
-    width: fit-content;
-    transition: all var(--transition-speed) ease;
-    animation: hintFloat 3s ease-in-out infinite;
-    pointer-events: none;
-    border: 1px solid rgba(255,255,255,0.1);
-}
-
-@keyframes hintFloat {
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-4px);
-    }
-}
-
-.scan-icon {
-    opacity: 0.9;
-    flex-shrink: 0;
-}
-
 /* ==================== 提示文字 ==================== */
 .qr-tip {
     font-size: 0.9rem;
@@ -565,17 +527,6 @@ body {
     .qr-corner {
         width: 14px;
         height: 14px;
-    }
-
-    .qr-scan-hint {
-        font-size: 0.7rem;
-        padding: 5px 14px 5px 10px;
-        margin-top: 8px;
-    }
-
-    .scan-icon {
-        width: 30px;
-        height: 30px;
     }
 
     .switch-btn {
