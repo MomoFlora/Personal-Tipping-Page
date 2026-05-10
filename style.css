@@ -39,7 +39,8 @@ html {
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB',
         'Microsoft YaHei', 'Noto Sans SC', sans-serif;
-    background: var(--bg-deep);
+    /* 背景图 + 深色后备 */
+    background: var(--bg-deep) url('images/bg.webp') no-repeat center/cover fixed;
     color: var(--text-primary);
     min-height: 100vh;
     min-height: 100dvh;
