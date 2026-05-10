@@ -1,15 +1,14 @@
 /**
  * 打赏页面 - 交互逻辑 & 粒子动画
  * ==========================================
- * 图片路径已设置为本地 images 目录：
- * - 背景图：images/bg.webp (在 CSS 中定义)
+ * 图片路径：
+ * - 背景图：images/bg.webp (CSS中定义)
  * - 微信收款码：images/WeChat.jpg
  * - 支付宝收款码：images/Alipay.jpg
- * - 网站图标：images/favicon.ico (在 HTML 中定义)
+ * - 网站图标：images/favicon.ico (HTML中定义)
  * ==========================================
  */
 
-// ==================== 配置区 ====================
 const QR_CONFIG = {
     wechat: {
         imageUrl: 'images/WeChat.jpg',
@@ -23,7 +22,6 @@ const QR_CONFIG = {
     },
 };
 
-// 支付方式对应的主题色配置
 const THEME_COLORS = {
     wechat: {
         accent: '#07c160',
@@ -37,25 +35,22 @@ const THEME_COLORS = {
     },
 };
 
-// ==================== DOM 元素 ====================
+// DOM 元素
 const qrImage = document.getElementById('qrImage');
 const qrContainer = document.getElementById('qrContainer');
-const qrScanHint = document.getElementById('qrScanHint');
 const qrTip = document.getElementById('qrTip');
 const btnWechat = document.getElementById('btnWechat');
 const btnAlipay = document.getElementById('btnAlipay');
-const rewardCard = document.getElementById('rewardCard');
 const particleCanvas = document.getElementById('particleCanvas');
 const ctx = particleCanvas.getContext('2d');
 
-// ==================== 状态 ====================
 let currentMethod = 'wechat';
 let targetAccentRgb = THEME_COLORS.wechat.rgb;
 let currentAccentRgb = THEME_COLORS.wechat.rgb;
 let particles = [];
 let animationFrameId;
 
-// ==================== 粒子系统 ====================
+// ---------- 粒子系统 ----------
 function resizeCanvas() {
     particleCanvas.width = window.innerWidth;
     particleCanvas.height = window.innerHeight;
@@ -83,11 +78,7 @@ function updateParticles() {
         p.y += p.speedY;
         p.x += p.speedX;
         p.opacity += Math.sin(Date.now() * p.pulseSpeed + p.pulseOffset) * 0.003;
-
-        // 限制透明度范围
         p.opacity = Math.max(0.12, Math.min(0.7, p.opacity));
-
-        // 循环粒子位置
         if (p.y < -10) {
             p.y = particleCanvas.height + 10;
             p.x = Math.random() * particleCanvas.width;
@@ -99,12 +90,9 @@ function updateParticles() {
 
 function drawParticles() {
     ctx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
-
-    // 平滑过渡当前主题色
     const targetRgbArr = targetAccentRgb.split(',').map(Number);
     const currentRgbArr = currentAccentRgb.split(',').map(Number);
     const lerpFactor = 0.06;
-
     const newRgb = currentRgbArr.map((val, i) =>
         Math.round(val + (targetRgbArr[i] - val) * lerpFactor)
     );
@@ -113,17 +101,13 @@ function drawParticles() {
     for (const p of particles) {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-
-        // 粒子颜色混合主题色
         const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius * 2);
         gradient.addColorStop(0, `rgba(${currentAccentRgb}, ${p.opacity * 1.3})`);
         gradient.addColorStop(0.5, `rgba(${currentAccentRgb}, ${p.opacity * 0.6})`);
         gradient.addColorStop(1, `rgba(${currentAccentRgb}, 0)`);
-
         ctx.fillStyle = gradient;
         ctx.fill();
 
-        // 微弱的白色光点核心
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius * 0.35, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity * 0.6})`;
@@ -137,19 +121,14 @@ function animateParticles() {
     animationFrameId = requestAnimationFrame(animateParticles);
 }
 
-// ==================== 主题切换 ====================
+// ---------- 主题切换 ----------
 function updateThemeColors(method) {
     const colors = THEME_COLORS[method];
     targetAccentRgb = colors.rgb;
-
-    // 更新 CSS 变量
     document.documentElement.style.setProperty('--accent', colors.accent);
     document.documentElement.style.setProperty('--accent-glow', colors.glow);
     document.documentElement.style.setProperty('--accent-rgb', colors.rgb);
-
-    // 更新光晕颜色
-    const glowOrbs = document.querySelectorAll('.glow-orb');
-    glowOrbs.forEach((orb) => {
+    document.querySelectorAll('.glow-orb').forEach((orb) => {
         orb.style.background = orb.style.background.replace(
             /rgba\([\d,\s]+/,
             `rgba(${colors.rgb}`
@@ -159,47 +138,36 @@ function updateThemeColors(method) {
 
 function switchPaymentMethod(method) {
     if (currentMethod === method) return;
-
     currentMethod = method;
     const config = QR_CONFIG[method];
 
-    // 更新按钮状态
     btnWechat.classList.toggle('active', method === 'wechat');
     btnAlipay.classList.toggle('active', method === 'alipay');
 
-    // 添加二维码切换动画
     qrContainer.style.transform = 'scale(0.92)';
     qrContainer.style.opacity = '0.5';
     qrContainer.style.transition = 'all 0.2s ease-in';
 
     setTimeout(() => {
-        // 更新二维码图片
         qrImage.src = config.imageUrl;
-
-        // 更新提示文字
         qrTip.innerHTML = `请使用 <strong>${config.colorName}</strong> 扫码打赏`;
-
-        // 恢复二维码显示
         qrContainer.style.transform = 'scale(1)';
         qrContainer.style.opacity = '1';
         qrContainer.style.transition = 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
     }, 200);
 
-    // 更新主题色
     updateThemeColors(method);
 }
 
-// ==================== 事件绑定 ====================
+// ---------- 事件绑定 ----------
 btnWechat.addEventListener('click', () => switchPaymentMethod('wechat'));
 btnAlipay.addEventListener('click', () => switchPaymentMethod('alipay'));
 
-// 二维码点击放大效果
 qrContainer.addEventListener('click', () => {
     qrContainer.style.transform = 'scale(1.08)';
     qrContainer.style.transition = 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
     qrContainer.style.boxShadow =
         '0 0 0 2px rgba(var(--accent-rgb), 0.5), 0 16px 50px rgba(0,0,0,0.6), 0 0 70px rgba(var(--accent-rgb), 0.35)';
-
     setTimeout(() => {
         qrContainer.style.transform = 'scale(1)';
         qrContainer.style.boxShadow =
@@ -208,7 +176,6 @@ qrContainer.addEventListener('click', () => {
     }, 600);
 });
 
-// 窗口大小变化时重建粒子
 let resizeTimeout;
 window.addEventListener('resize', () => {
     clearTimeout(resizeTimeout);
@@ -218,7 +185,6 @@ window.addEventListener('resize', () => {
     }, 300);
 });
 
-// ==================== 键盘切换（桌面端快捷键） ====================
 window.addEventListener('keydown', (e) => {
     if (e.key === '1' || e.key === 'w' || e.key === 'W') {
         switchPaymentMethod('wechat');
@@ -227,21 +193,15 @@ window.addEventListener('keydown', (e) => {
     }
 });
 
-// ==================== 初始化 ====================
+// ---------- 初始化 ----------
 function init() {
     resizeCanvas();
     createParticles();
     animateParticles();
-
-    // 设置初始主题
     updateThemeColors('wechat');
     btnWechat.classList.add('active');
-
-    // 初始提示文字
     qrTip.innerHTML = `请使用 <strong>${QR_CONFIG.wechat.colorName}</strong> 扫码打赏`;
-
     console.log('✨ 打赏页面已就绪');
-    console.log('💡 桌面端可按 1/W 切换到微信，按 2/A 切换到支付宝');
 }
 
 init();
