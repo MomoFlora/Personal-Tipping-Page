@@ -1,28 +1,24 @@
 /**
  * 打赏页面 - 交互逻辑 & 粒子动画
  * ==========================================
- * 使用说明：
- * 1. 将你的微信收款码截图保存为 wechat-qr.png
- * 2. 将你的支付宝收款码截图保存为 alipay-qr.png
- * 3. 将两个图片文件放在与本页面相同的目录下
- * 4. 修改下方 QR_CONFIG 中的图片路径即可
+ * 图片路径已设置为本地 images 目录：
+ * - 背景图：images/bg.webp
+ * - 微信收款码：images/WeChat.jpg
+ * - 支付宝收款码：images/Alipay.jpg
  * ==========================================
  */
 
 // ==================== 配置区 ====================
-// 请将你的收款码图片放在同目录下，然后修改这里的路径
 const QR_CONFIG = {
     wechat: {
-        // 微信收款码图片路径（请替换为你自己的图片）
-        imageUrl:
-            'https://api.qrserver.com/v1/create-qr-code/?size=260x260&bgcolor=ffffff&fgcolor=1a1a2e&data=https://example.com/reward-wechat',
+        // 微信收款码图片路径
+        imageUrl: 'images/WeChat.jpg',
         label: '微信',
         colorName: '微信',
     },
     alipay: {
-        // 支付宝收款码图片路径（请替换为你自己的图片）
-        imageUrl:
-            'https://api.qrserver.com/v1/create-qr-code/?size=260x260&bgcolor=ffffff&fgcolor=1a1a2e&data=https://example.com/reward-alipay',
+        // 支付宝收款码图片路径
+        imageUrl: 'images/Alipay.jpg',
         label: '支付宝',
         colorName: '支付宝',
     },
@@ -247,7 +243,6 @@ function init() {
 
     console.log('✨ 打赏页面已就绪');
     console.log('💡 桌面端可按 1/W 切换到微信，按 2/A 切换到支付宝');
-    console.log('📱 请将你的收款码图片替换 QR_CONFIG 中的路径');
 }
 
 init();
