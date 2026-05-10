@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>随缘打赏 · 感谢支持</title>
+    <!-- 网站图标 -->
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -53,21 +55,21 @@
                     <img
                     class="qr-image"
                     id="qrImage"
-                    src="https://api.qrserver.com/v1/create-qr-code/?size=260x260&bgcolor=ffffff&fgcolor=1a1a2e&data=https://example.com/reward-wechat"
+                    src="images/WeChat.jpg"
                     alt="打赏二维码"
                     loading="eager"
                     />
-                    <!-- 扫描提示覆盖层 -->
-                    <div class="qr-scan-hint" id="qrScanHint">
-                        <svg class="scan-icon" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <rect x="3" y="3" width="7" height="7" rx="1" />
-                            <rect x="14" y="3" width="7" height="7" rx="1" />
-                            <rect x="3" y="14" width="7" height="7" rx="1" />
-                            <rect x="14" y="14" width="7" height="7" rx="1" />
-                            <line x1="8" y1="3" x2="8" y2="10" stroke-width="4" stroke-linecap="round" />
-                        </svg>
-                        <span>扫码打赏</span>
-                    </div>
+                </div>
+                <!-- 扫码提示（放在容器外部，不遮挡二维码） -->
+                <div class="qr-scan-hint" id="qrScanHint">
+                    <svg class="scan-icon" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <rect x="3" y="3" width="7" height="7" rx="1" />
+                        <rect x="14" y="3" width="7" height="7" rx="1" />
+                        <rect x="3" y="14" width="7" height="7" rx="1" />
+                        <rect x="14" y="14" width="7" height="7" rx="1" />
+                        <line x1="8" y1="3" x2="8" y2="10" stroke-width="4" stroke-linecap="round" />
+                    </svg>
+                    <span>扫码打赏</span>
                 </div>
                 <!-- 二维码边框角标 -->
                 <div class="qr-corner qr-corner-tl"></div>
