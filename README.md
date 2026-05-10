@@ -19,17 +19,18 @@ A visually stunning, responsive **reward/donation page** that allows visitors to
 
 > Host this page on any static server (GitHub Pages, Netlify, Vercel, etc.) and share the link.
 
-## 📁 File Structure
-.
-├── index.html # Main HTML structure
-├── style.css # All styles, animations, and responsive rules
-├── app.js # Interactive logic, particle system, theme switching
-└── images/
-├── bg.webp # Background image (replace with your own)
-├── WeChat.jpg # Your WeChat QR code image
-├── Alipay.jpg # Your Alipay QR code image
-└── favicon.ico # Website icon (optional)
+# 📁 File Structure
 
+```text
+├── index.html          # Main HTML structure
+├── style.css           # All styles, animations, and responsive rules
+├── app.js              # Interactive logic, particle system, theme switching
+└── images/
+    ├── bg.webp         # Background image (replace with your own)
+    ├── WeChat.jpg      # Your WeChat QR code image
+    ├── Alipay.jpg      # Your Alipay QR code image
+    └── favicon.ico     # Website icon (optional)
+```
 
 ## 🛠️ How to Use
 
