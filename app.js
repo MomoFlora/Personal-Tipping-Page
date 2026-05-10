@@ -2,22 +2,21 @@
  * 打赏页面 - 交互逻辑 & 粒子动画
  * ==========================================
  * 图片路径已设置为本地 images 目录：
- * - 背景图：images/bg.webp
+ * - 背景图：images/bg.webp (在 CSS 中定义)
  * - 微信收款码：images/WeChat.jpg
  * - 支付宝收款码：images/Alipay.jpg
+ * - 网站图标：images/favicon.ico (在 HTML 中定义)
  * ==========================================
  */
 
 // ==================== 配置区 ====================
 const QR_CONFIG = {
     wechat: {
-        // 微信收款码图片路径
         imageUrl: 'images/WeChat.jpg',
         label: '微信',
         colorName: '微信',
     },
     alipay: {
-        // 支付宝收款码图片路径
         imageUrl: 'images/Alipay.jpg',
         label: '支付宝',
         colorName: '支付宝',
