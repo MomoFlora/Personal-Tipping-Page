@@ -77,6 +77,23 @@ body {
 
 When viewing the page in a desktop browser, you can quickly switch payment methods:
 
-Press 1 or W → Switch to WeChat
+- Press 1 or W → Switch to WeChat
+- Press 2 or A → Switch to Alipay
 
-Press 2 or A → Switch to Alipay
+> 🎨 Customization
+You can modify colors, animations, and layout by editing the CSS variables at the top of style.css:
+
+```
+:root {
+    --wechat-green: #07c160;
+    --alipay-blue: #1677ff;
+    --card-bg: rgba(20, 20, 45, 0.75);
+    --transition-speed: 0.45s;
+    /* ... */
+}
+```
+
+> 📄 License
+This project is open source and available under the MIT License.
+
+*Made with ❤️* — Enjoy your new tip jar!
